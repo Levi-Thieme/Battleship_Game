@@ -14,6 +14,7 @@ public class NodeGrid {
 			for(int column = 0; column < 10; column++){
 				nodes[row][column] = new Node();
 				nodes[row][column].setPoint(new Point(row, column));
+				nodes[row][column].setOccupied(false);
 			}
 		}
 	}

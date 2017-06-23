@@ -5,9 +5,10 @@ public abstract class Ship {
 	private String name;
 	private	Point[] occupiedNodes;
 	private int length;
+	private char symbol;
 	
 	
-	
+
 	public Ship(String team, String name, int length){
 		this.team = team;
 		this.name = name;
@@ -39,5 +40,17 @@ public abstract class Ship {
 		return length;
 	}
 	
+	public char getSymbol() {
+		return symbol;
+	}
+
+	public void setSymbol(char symbol) {
+		this.symbol = symbol;
+	}
+	public void printPoints(){
+		for(Point p: occupiedNodes)
+			System.out.println("X : "+ p.getX() + "  Y: " + p.getY());
+	}
+
 	
 }

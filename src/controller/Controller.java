@@ -25,10 +25,8 @@ public class Controller {
 		grid = new NodeGrid();
 		
 		Player user = new User();
+		placeShipsRandomly(user);
 		
-		for(Ship s: user.getShips()){
-			placeShip(s);
-		}
 		
 		gui = new BattleshipGUI();
 		gridPane = gui.getGridPane();
@@ -37,19 +35,30 @@ public class Controller {
 	
 	};
 	
+	public void placeShipsRandomly(Player user){
+		boolean successfulPlacement = false;
+		
+		for(Ship s: user.getShips()){
+			while(!successfulPlacement){
+				successfulPlacement = placeShip(s);
+			}
+			successfulPlacement = false;
+		}
+	}
 	
-	public void placeShip(Ship ship){
+	
+	public boolean placeShip(Ship ship){
 		
 		Point[] shipPoints = new Point[ship.getLength()];
 		
 		Random random = new Random();
 		
 		
-		int row = random.nextInt(10 - ship.getLength());
+		int row = random.nextInt(11 - ship.getLength());
 		if(row < ship.getLength())
 			row = ship.getLength();
 		
-		int column = random.nextInt(10 - ship.getLength());
+		int column = random.nextInt(11 - ship.getLength());
 		if(column < ship.getLength())
 			column = ship.getLength();
 		
@@ -57,8 +66,9 @@ public class Controller {
 		
 		
 		shipPoints[0] = new Point(row, column);
+		
 		if(grid.isNodeOccupied(shipPoints[0]))
-			placeShip(ship);
+			return false;
 		
 		
 		int orientation = random.nextInt(4);
@@ -69,7 +79,7 @@ public class Controller {
 				shipPoints[i] = new Point(row, column - i);
 				
 				if(grid.isNodeOccupied(shipPoints[i]))
-					placeShip(ship);
+					return false;
 			}
 		}
 		
@@ -78,9 +88,9 @@ public class Controller {
 			for(int i = 1; i < ship.getLength(); i++){
 				shipPoints[i] = new Point(row, column + i);
 			
-			if(grid.isNodeOccupied(shipPoints[i]))
-				placeShip(ship);
-		}
+				if(grid.isNodeOccupied(shipPoints[i]))
+					return false;
+			}	
 		}
 		
 		//Leftwards orientation from start node
@@ -89,7 +99,7 @@ public class Controller {
 				shipPoints[i] = new Point(row - i, column);
 				
 				if(grid.isNodeOccupied(shipPoints[i]))
-					placeShip(ship);
+					return false;
 			}
 		}
 		
@@ -99,7 +109,7 @@ public class Controller {
 				shipPoints[i] = new Point(row + i, column);
 				
 				if(grid.isNodeOccupied(shipPoints[i]))
-					placeShip(ship);
+					return false;
 			}
 		}
 		
@@ -108,9 +118,8 @@ public class Controller {
 		}
 		
 		ship.setOccupiedNodes(shipPoints);
-		for(Point p: shipPoints)
-			System.out.println(p.toString());
 		
+		return true;
 	}
 	
 	public void updateGridView(Player player){
@@ -131,6 +140,7 @@ public class Controller {
 				y = nodePoints[j].getY();
 				
 				buttons[x][y].setBackground(Color.cyan);
+				buttons[x][y].setText(Character.toString(s.getSymbol()));
 			}
 		}
 	}

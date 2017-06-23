@@ -6,6 +6,14 @@ public class Node {
 	
 	private Point point;
 	private boolean occupied;
+	private boolean hit;
+	public boolean isHit() {
+		return hit;
+	}
+
+	public void setHit(boolean hit) {
+		this.hit = hit;
+	}
 	private Color color;
 	
 	

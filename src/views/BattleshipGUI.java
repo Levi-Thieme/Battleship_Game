@@ -10,7 +10,7 @@ public class BattleshipGUI extends JFrame{
 	
 	public BattleshipGUI(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(200, 100, 1000, 600);
+		setBounds(300, 150, 1000, 600);
 		
 		gridPane = new NodeGridPanel();
 		getContentPane().add(gridPane, BorderLayout.CENTER);

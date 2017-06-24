@@ -35,6 +35,11 @@ public class Controller {
 	
 	};
 	
+	public boolean checkNodeAvailability(){
+		
+		return true;
+	}
+	
 	public void placeShipsRandomly(Player user){
 		boolean successfulPlacement = false;
 		

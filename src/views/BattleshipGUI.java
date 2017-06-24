@@ -10,14 +10,19 @@ public class BattleshipGUI extends JFrame{
 	
 	public BattleshipGUI(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(300, 150, 1000, 600);
+		setBounds(300, 100, 1200, 600);
 		
 		gridPane = new NodeGridPanel();
-		getContentPane().add(gridPane, BorderLayout.CENTER);
+		gridPane.setPreferredSize(new Dimension(500, 100));
+		getContentPane().add(gridPane, BorderLayout.EAST);
 		
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(200, 10));
-		getContentPane().add(panel, BorderLayout.EAST);
+		getContentPane().add(panel, BorderLayout.CENTER);
+		
+		NodeGridPanel nodeGridPanel = new NodeGridPanel();
+		nodeGridPanel.setPreferredSize(new Dimension(500, 100));
+		getContentPane().add(nodeGridPanel, BorderLayout.WEST);
 		
 		setVisible(true);
 	}

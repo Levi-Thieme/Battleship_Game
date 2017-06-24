@@ -2,38 +2,44 @@ package models;
 
 import java.awt.Color;
 
-public class Node {
+import javax.swing.JButton;
+
+public class Node extends JButton {
 	
-	private Point point;
 	private boolean occupied;
 	private boolean hit;
-	public boolean isHit() {
-		return hit;
+	private Color color;
+	private int X;
+	private int Y;
+
+	public Node(){
+		super();
+	}
+	
+	public Node(int x, int y){
+		super();
+		X = x;
+		Y = y;
+	}
+	
+
+	
+	public int getX() {
+		return X;
 	}
 
-	public void setHit(boolean hit) {
-		this.hit = hit;
+	public void setX(int x) {
+		X = x;
 	}
-	private Color color;
-	
-	
-	public Node(){
-		
+
+	public int getY() {
+		return Y;
 	}
-	
-	public Node(Point p, Color c){
-		point = p;
-		color = c;
+
+	public void setY(int y) {
+		Y = y;
 	}
 	
-	
-	
-	public Point getPoint() {
-		return point;
-	}
-	public void setPoint(Point point) {
-		this.point = point;
-	}
 	public boolean isOccupied() {
 		return occupied;
 	}
@@ -46,6 +52,15 @@ public class Node {
 	}
 	public void setColor(Color color) {
 		this.color = color;
+		this.setBackground(color);
+	}
+	
+	public void setHit(boolean hit) {
+		this.hit = hit;
+	}
+	
+	public boolean isHit() {
+		return hit;
 	}
 
 }

@@ -3,7 +3,7 @@ package models;
 public abstract class Ship {
 	private String team;
 	private String name;
-	private	Point[] occupiedNodes;
+	private	Node[] occupiedNodes;
 	private int length;
 	private char symbol;
 	
@@ -27,10 +27,10 @@ public abstract class Ship {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Point[] getOccupiedNodes() {
+	public Node[] getOccupiedNodes() {
 		return occupiedNodes;
 	}
-	public void setOccupiedNodes(Point[] occupiedNodes) {
+	public void setOccupiedNodes(Node[] occupiedNodes) {
 		this.occupiedNodes = occupiedNodes;
 	}
 	public void setLength(int length){
@@ -46,10 +46,6 @@ public abstract class Ship {
 
 	public void setSymbol(char symbol) {
 		this.symbol = symbol;
-	}
-	public void printPoints(){
-		for(Point p: occupiedNodes)
-			System.out.println("X : "+ p.getX() + "  Y: " + p.getY());
 	}
 
 	

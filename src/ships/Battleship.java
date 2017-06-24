@@ -1,6 +1,6 @@
 package ships;
 
-import models.Point;
+
 import models.Ship;
 
 

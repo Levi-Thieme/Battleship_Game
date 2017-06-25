@@ -21,7 +21,7 @@ public class Controller {
 	BattleshipGUI gui;
 	NodeGridPanel gridPane;
 	
-	public Controller(){
+	public Controller(BattleshipGUI gui){
 		
 		grid = new NodeGrid();
 		
@@ -29,12 +29,12 @@ public class Controller {
 		placeShipsRandomly(user);
 		
 		
-		gui = new BattleshipGUI();
+		this.gui = gui;
+		
 		gridPane = gui.getUserGridPane();
 		
 		updateGridView(user);
-		
-	
+
 	};
 	
 	public void solicitUserShipPlacement(Ship s){
@@ -55,13 +55,17 @@ public class Controller {
 	
 	public void placeShipsRandomly(Player user){
 		boolean successfulPlacement = false;
+	
 		
-		for(Ship s: user.getShips()){
-			while(!successfulPlacement){
-				successfulPlacement = placeShip(s);
-			}
-			successfulPlacement = false;
+		Ship[] ships = user.getShips();
+		
+		for(int i = 0; i < ships.length; i++){
+			do{
+				successfulPlacement = placeShip(ships[i]);
+				System.out.println(i);
+			}while(successfulPlacement == false);
 		}
+		
 	}
 	
 	
@@ -151,11 +155,11 @@ public class Controller {
 		
 		for(int i = 0; i < ships.length; i++){
 			Ship s = ships[i];
-			Node[] nodeNodes = s.getOccupiedNodes();
+			Node[] shipNodes = s.getOccupiedNodes();
 			
-			for(int j = 0; j < nodeNodes.length; j++){
-				x = nodeNodes[j].getX();
-				y = nodeNodes[j].getY();
+			for(int j = 0; j < shipNodes.length; j++){
+				x = shipNodes[j].getRow();
+				y = shipNodes[j].getColumn();
 				
 				buttons[x][y].setBackground(Color.cyan);
 				buttons[x][y].setText(Character.toString(s.getSymbol()));

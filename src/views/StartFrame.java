@@ -43,15 +43,19 @@ public class StartFrame extends JFrame implements ActionListener {
 		
 		getContentPane().add(continueBtn, BorderLayout.SOUTH);
         
-        setVisible(true);
+        
 	}
 	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.setVisible(false);
 		
-		new Controller();
+		if(e.getActionCommand().equals("Continue")){
+			this.setVisible(false);
+			
+			//BattleshipGUI gui = new BattleshipGUI();
+			
+		}
 	}
 
 }

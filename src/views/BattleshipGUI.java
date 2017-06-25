@@ -3,6 +3,9 @@ package views;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+
+import controller.Controller;
+
 import java.awt.Dimension;
 
 public class BattleshipGUI extends JFrame{
@@ -15,7 +18,7 @@ public class BattleshipGUI extends JFrame{
 		
 		addPanes();
 		
-		setVisible(true);
+		Controller control = new Controller(this);
 	}
 	
 	public void addPanes(){

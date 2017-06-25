@@ -11,8 +11,11 @@ public class Driver {
 		
 		//StartFrame startF = new StartFrame();
 		
-		Controller c = new Controller();
+		BattleshipGUI gui = new BattleshipGUI();
 		
+		
+		gui.setVisible(true);
+
 	}
 
 }

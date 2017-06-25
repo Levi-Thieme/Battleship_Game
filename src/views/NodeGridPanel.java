@@ -20,17 +20,6 @@ public class NodeGridPanel extends JPanel implements ActionListener{
 	ArrayList<Node> selectedNodes = new ArrayList<>();
 	private boolean placingShips = false;
 	
-	public static void main(String[] args){
-		
-		JFrame frame = new JFrame();
-		frame.setBounds(400, 100, 500, 500);
-		
-		frame.getContentPane().add(new NodeGridPanel());
-		
-		
-		frame.setVisible(true);
-	}
-	
 	public NodeGridPanel(){
 		
 		setPreferredSize(new Dimension(500, 400));
@@ -44,11 +33,10 @@ public class NodeGridPanel extends JPanel implements ActionListener{
 			for(int column = 0; column < 10; column++){
 				
 				Node node = new Node(row, column);
-				
 				node.addActionListener(this);
 				
-				this.add(node);
 				buttonNodes[row][column] = node;
+				this.add(buttonNodes[row][column]);
 			}
 		}		
 	}

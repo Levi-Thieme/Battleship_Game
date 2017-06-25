@@ -4,42 +4,28 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 public class Node extends JButton {
 	
 	private boolean occupied;
 	private boolean hit;
 	private Color color;
-	private int X;
-	private int Y;
+	private int row;
+	private int column;
 
 	public Node(){
-		
+		setPreferredSize(new Dimension(10, 10));
 	}
+	
 	
 	public Node(int x, int y){
 		setPreferredSize(new Dimension(10, 10));
-		X = x;
-		Y = y;
+		row = x;
+		column = y;
 	}
 	
-
-	
-	public int getX() {
-		return X;
-	}
-
-	public void setX(int x) {
-		X = x;
-	}
-
-	public int getY() {
-		return Y;
-	}
-
-	public void setY(int y) {
-		Y = y;
-	}
 	
 	public boolean isOccupied() {
 		return occupied;
@@ -62,6 +48,20 @@ public class Node extends JButton {
 	
 	public boolean isHit() {
 		return hit;
+	}
+	
+	
+	public int getRow() {
+		return row;
+	}
+	public void setRow(int row) {
+		this.row = row;
+	}
+	public int getColumn() {
+		return column;
+	}
+	public void setColumn(int column) {
+		this.column = column;
 	}
 
 }

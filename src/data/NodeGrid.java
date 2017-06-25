@@ -22,11 +22,11 @@ public class NodeGrid {
 	}
 	
 	public void setNodeOccupied(Node n){
-		nodes[n.getX()][n.getY()].setOccupied(true);
+		nodes[n.getRow()][n.getColumn()].setOccupied(true);
 	}
 	
 	public boolean isNodeOccupied(Node n){
-		if(nodes[n.getX()][n.getY()].isOccupied())
+		if(nodes[n.getRow()][n.getColumn()].isOccupied())
 			return true;
 		
 		return false;

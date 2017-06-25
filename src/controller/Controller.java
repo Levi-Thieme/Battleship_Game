@@ -1,9 +1,11 @@
 package controller;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import views.BattleshipGUI;
 import views.NodeGridPanel;
@@ -28,11 +30,21 @@ public class Controller {
 		
 		
 		gui = new BattleshipGUI();
-		gridPane = gui.getGridPane();
+		gridPane = gui.getUserGridPane();
 		
 		updateGridView(user);
+		
 	
 	};
+	
+	public void solicitUserShipPlacement(Ship s){
+		JOptionPane.showMessageDialog(null, "Place your " + s.getName() +
+				"\nIt requires " + s.getLength() + " spaces.");
+		
+		gridPane.setPlacingShips(true);
+		ArrayList<Node> selectedNodes = gridPane.getSelectedNodes();
+		gridPane.setPlacingShips(false);
+	}
 	
 	public boolean checkNodeAvailability(Node n){
 		if(n.isOccupied())

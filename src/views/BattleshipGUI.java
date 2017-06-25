@@ -6,30 +6,42 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 
 public class BattleshipGUI extends JFrame{
-	NodeGridPanel gridPane;
+	NodeGridPanel userGridPane;
+	NodeGridPanel AIGridPane;
 	
 	public BattleshipGUI(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(300, 100, 1200, 600);
 		
-		gridPane = new NodeGridPanel();
-		gridPane.setPreferredSize(new Dimension(500, 100));
-		getContentPane().add(gridPane, BorderLayout.EAST);
+		addPanes();
+		
+		setVisible(true);
+	}
+	
+	public void addPanes(){
+		
+		userGridPane = new NodeGridPanel();
+		userGridPane.setPreferredSize(new Dimension(500, 100));
+		getContentPane().add(userGridPane, BorderLayout.EAST);
 		
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(200, 10));
 		getContentPane().add(panel, BorderLayout.CENTER);
 		
-		NodeGridPanel nodeGridPanel = new NodeGridPanel();
-		nodeGridPanel.setPreferredSize(new Dimension(500, 100));
-		getContentPane().add(nodeGridPanel, BorderLayout.WEST);
+		AIGridPane = new NodeGridPanel();
+		AIGridPane.setPreferredSize(new Dimension(500, 100));
+		getContentPane().add(AIGridPane, BorderLayout.WEST);
 		
-		setVisible(true);
+		
+		
 	}
 	
 	
-	public NodeGridPanel getGridPane(){
-		return gridPane;
+	public NodeGridPanel getUserGridPane(){
+		return userGridPane;
+	}
+	public NodeGridPanel getAIGridPane(){
+		return AIGridPane;
 	}
 
 }

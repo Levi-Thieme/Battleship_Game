@@ -1,6 +1,7 @@
 package models;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
 
@@ -13,11 +14,11 @@ public class Node extends JButton {
 	private int Y;
 
 	public Node(){
-		super();
+		
 	}
 	
 	public Node(int x, int y){
-		super();
+		setPreferredSize(new Dimension(10, 10));
 		X = x;
 		Y = y;
 	}

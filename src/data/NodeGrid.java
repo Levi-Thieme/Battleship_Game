@@ -26,7 +26,7 @@ public class NodeGrid {
 	}
 	
 	public boolean isNodeOccupied(Node n){
-		if(n.isOccupied())
+		if(nodes[n.getX()][n.getY()].isOccupied())
 			return true;
 		
 		return false;

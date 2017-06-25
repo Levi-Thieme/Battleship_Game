@@ -9,13 +9,9 @@ public class Driver {
 	
 	public static void main(String[] args){
 		
-		//StartFrame startF = new StartFrame();
-		
-		BattleshipGUI gui = new BattleshipGUI();
-		
-		
-		gui.setVisible(true);
-
+		StartFrame startF = new StartFrame();
+		startF.setVisible(true);
+	
 	}
 
 }

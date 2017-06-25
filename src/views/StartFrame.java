@@ -53,7 +53,11 @@ public class StartFrame extends JFrame implements ActionListener {
 		if(e.getActionCommand().equals("Continue")){
 			this.setVisible(false);
 			
-			//BattleshipGUI gui = new BattleshipGUI();
+			BattleshipGUI gui = new BattleshipGUI();
+			
+			Controller control = new Controller(gui);
+			
+			gui.setVisible(true);
 			
 		}
 	}

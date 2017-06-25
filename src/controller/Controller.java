@@ -54,7 +54,7 @@ public class Controller {
 	}
 	
 	public void placeShipsRandomly(Player user){
-		boolean successfulPlacement = false;
+		boolean successfulPlacement;
 	
 		
 		Ship[] ships = user.getShips();
@@ -62,7 +62,6 @@ public class Controller {
 		for(int i = 0; i < ships.length; i++){
 			do{
 				successfulPlacement = placeShip(ships[i]);
-				System.out.println(i);
 			}while(successfulPlacement == false);
 		}
 		

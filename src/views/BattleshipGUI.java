@@ -17,8 +17,6 @@ public class BattleshipGUI extends JFrame{
 		setBounds(300, 100, 1200, 600);
 		
 		addPanes();
-		
-		Controller control = new Controller(this);
 	}
 	
 	public void addPanes(){

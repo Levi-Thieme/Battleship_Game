@@ -11,6 +11,7 @@ import java.awt.Dimension;
 public class BattleshipGUI extends JFrame{
 	NodeGridPanel userGridPane;
 	NodeGridPanel AIGridPane;
+	InfoPanel infoPane;
 	
 	public BattleshipGUI(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -25,9 +26,9 @@ public class BattleshipGUI extends JFrame{
 		userGridPane.setPreferredSize(new Dimension(500, 100));
 		getContentPane().add(userGridPane, BorderLayout.EAST);
 		
-		JPanel panel = new JPanel();
-		panel.setPreferredSize(new Dimension(200, 10));
-		getContentPane().add(panel, BorderLayout.CENTER);
+		infoPane = new InfoPanel(userGridPane);
+		infoPane.setPreferredSize(new Dimension(200, 10));
+		getContentPane().add(infoPane, BorderLayout.CENTER);
 		
 		AIGridPane = new NodeGridPanel();
 		AIGridPane.setPreferredSize(new Dimension(500, 100));
@@ -43,6 +44,10 @@ public class BattleshipGUI extends JFrame{
 	}
 	public NodeGridPanel getAIGridPane(){
 		return AIGridPane;
+	}
+	
+	public InfoPanel getInfoPanel(){
+		return infoPane;
 	}
 
 }

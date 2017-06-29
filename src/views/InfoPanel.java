@@ -9,51 +9,80 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
+
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import javax.swing.JButton;
+
+import models.Node;
+
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class InfoPanel extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JButton placeShipBtn;
+	private JButton clearSelectedNodesBtn;
+	private boolean shipPlaced = false;
+	private NodeGridPanel userGridPane;
 	
-	public InfoPanel(){
+	public InfoPanel(NodeGridPanel userGridPane){
+		setPreferredSize(new Dimension(200, 600));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
+		userGridPane = userGridPane;
+		
 		JLabel lblBattleship = new JLabel("Battleship");
+		lblBattleship.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblBattleship.setPreferredSize(new Dimension(50, 25));
 		lblBattleship.setBorder(null);
-		lblBattleship.setFont(new Font("Dialog", Font.BOLD, 24));
+		lblBattleship.setFont(new Font("Dialog", Font.BOLD, 18));
 		add(lblBattleship);
 		
 		JPanel panel_2 = new JPanel();
 		add(panel_2);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JPanel panel = new JPanel();
-		panel_2.add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		placeShipBtn = new JButton("Place Ship");
+		placeShipBtn.setPreferredSize(new Dimension(140, 45));
+		panel_2.add(placeShipBtn);
+		placeShipBtn.addActionListener(new PlacementButtonListener());
 		
-		JLabel lblOpponentShips = new JLabel("Opponent Ships:");
-		panel.add(lblOpponentShips);
-		lblOpponentShips.setFont(new Font("Dialog", Font.BOLD, 18));
+		clearSelectedNodesBtn = new JButton("Clear Selected Nodes");
+		panel_2.add(clearSelectedNodesBtn);
+		clearSelectedNodesBtn.addActionListener(new PlacementButtonListener());
 		
-		textField_1 = new JTextField();
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+	}
+	
+	private class PlacementButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == placeShipBtn){
+				shipPlaced = true;
+			}
+			else if(e.getSource() == clearSelectedNodesBtn){
+				ArrayList<Node> selectedNodes = userGridPane.getSelectedNodes();
+				
+				for(Node n: selectedNodes){
+					n.setBackground(new JButton().getBackground());
+				}
+				
+				userGridPane.clearSelectedNodes();
+			}
+		}
 		
-		JPanel panel_1 = new JPanel();
-		panel_2.add(panel_1);
-		
-		JLabel lblPlayerShips = new JLabel("Player Ships:");
-		panel_1.add(lblPlayerShips);
-		lblPlayerShips.setHorizontalTextPosition(SwingConstants.LEFT);
-		lblPlayerShips.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPlayerShips.setFont(new Font("Dialog", Font.BOLD, 18));
-		
-		textField = new JTextField();
-		panel_1.add(textField);
-		textField.setColumns(10);
-		
+	}
+	
+	public boolean getShipPlaced(){
+		return shipPlaced;
+	}
+	
+	public void setShipPlaced(boolean b){
+		shipPlaced = b;
 	}
 
 }

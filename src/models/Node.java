@@ -29,6 +29,14 @@ public class Node extends JButton {
 		column = y;
 	}
 	
+	public boolean isAdjacent(Node n){
+		for(int i = 0; i < adjacentNodes.size(); i++){
+			if(n == adjacentNodes.get(i))
+				return true;
+		}
+		return false;
+	}
+	
 	
 	public void addNeighbor(Node n){
 		adjacentNodes.add(n);

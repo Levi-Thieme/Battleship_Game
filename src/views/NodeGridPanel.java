@@ -1,11 +1,13 @@
 package views;
 
+
 import javax.swing.JPanel;
 
 import models.Node;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ public class NodeGridPanel extends JPanel implements ActionListener{
 	Node[][] buttonNodes;
 	ArrayList<Node> selectedNodes = new ArrayList<>();
 	private boolean placingShips = false;
+	private boolean shipPlaced = false;
+	private int shipLength;
 	
 	public NodeGridPanel(){
 		
@@ -41,7 +45,13 @@ public class NodeGridPanel extends JPanel implements ActionListener{
 		}		
 	}
 	
-	
+	public void solicitUserShipPlacement(String name, int shipLength){
+		this.shipLength = shipLength;
+		
+		JOptionPane.showMessageDialog(null, "Place your " + name +
+				"\nIt requires " + shipLength + " spaces.");
+		return;
+	}
 
 	public Node[][] getButtonNodes() {
 		return buttonNodes;
@@ -65,11 +75,33 @@ public class NodeGridPanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(placingShips){
+			
 			Node selectedButton = (Node) e.getSource();
 			
-			selectedButton.setBackground(Color.DARK_GRAY);
-			selectedNodes.add(selectedButton);
+			buttonNodes[selectedButton.getX()][selectedButton.getY()].setBackground(Color.DARK_GRAY);
+			buttonNodes[selectedButton.getX()][selectedButton.getY()].add(selectedButton);
+			/*
+			if(selectedNodes.size() < shipLength){
+				
+				for(int i = 0; i < selectedNodes.size(); i++){
+					
+					if(selectedNodes.size() > 0){
+						if(selectedNodes.get(i).isAdjacent(selectedButton)){
+							selectedButton.setBackground(Color.DARK_GRAY);
+							selectedNodes.add(selectedButton);
+						}
+					}
+					else{
+						selectedButton.setBackground(Color.DARK_GRAY);
+						selectedNodes.add(selectedButton);
+					}
+				}
+			}	*/
 		}
+	}
+	
+	public void clearSelectedNodes(){
+		selectedNodes.clear();
 	}
 
 

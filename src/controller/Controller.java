@@ -20,38 +20,71 @@ public class Controller {
 	NodeGrid grid;
 	BattleshipGUI gui;
 	NodeGridPanel gridPane;
+	Player user;
 	
 	public Controller(BattleshipGUI gui){
 		
 		grid = new NodeGrid();
 		
-		Player user = new User();
+		user = new User();
 		placeShipsRandomly(user);
 		
 		
 		this.gui = gui;
 		
+		
 		gridPane = gui.getUserGridPane();
+		gridPane.setPlacingShips(true);
 		
 		updateGridView(user);
-
+		
+		gui.setVisible(true);
+		
+		
+		//placeUserShips(user);
 	};
 	
-	public void solicitUserShipPlacement(Ship s){
-		JOptionPane.showMessageDialog(null, "Place your " + s.getName() +
-				"\nIt requires " + s.getLength() + " spaces.");
+	public void placeUserShips(Player user){
+		for(Ship ship: user.getShips())
+			solicitShipPlacement(ship);
 		
-		gridPane.setPlacingShips(true);
-		ArrayList<Node> selectedNodes = gridPane.getSelectedNodes();
-		gridPane.setPlacingShips(false);
 	}
 	
-	public boolean checkNodeAvailability(Node n){
-		if(n.isOccupied())
-			return false;
+	public void solicitShipPlacement(Ship ship){
+		gridPane.setPlacingShips(true);
 		
-		return true;
+		boolean shipPlaced = false;
+		
+		
+		/*
+		gridPane.solicitUserShipPlacement(ship.getName(), ship.getLength());
+		
+		
+		
+		while(!shipPlaced)
+			shipPlaced = gui.getInfoPanel().getShipPlaced();
+		
+		//Reset shipPlaced boolean in the infoPane
+		gui.getInfoPanel().setShipPlaced(false);
+		
+		ArrayList<Node> selectedNodes = gridPane.getSelectedNodes();
+		
+		Node[] nodes = new Node[ship.getLength()];
+		
+		//Convert selectedNodes arrayList to an array for setting ships occupied nodes
+		for(int i = 0; i < selectedNodes.size(); i++)
+			nodes[i] = selectedNodes.get(i);
+		
+		ship.setOccupiedNodes(nodes);
+		
+		for(Node n: nodes)
+			n.setOccupied(true);
+		
+		gridPane.setPlacingShips(false);
+		updateGridView(user); */
 	}
+	
+
 	
 	public void placeShipsRandomly(Player user){
 		boolean successfulPlacement;
@@ -61,14 +94,14 @@ public class Controller {
 		
 		for(int i = 0; i < ships.length; i++){
 			do{
-				successfulPlacement = placeShip(ships[i]);
+				successfulPlacement = randomlyPlaceShip(ships[i]);
 			}while(successfulPlacement == false);
 		}
 		
 	}
 	
 	
-	public boolean placeShip(Ship ship){
+	public boolean randomlyPlaceShip(Ship ship){
 		
 		Node[] shipNodes = new Node[ship.getLength()];
 		

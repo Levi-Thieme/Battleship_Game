@@ -19,6 +19,7 @@ public class NodeGrid {
 		}
 	}
 	
+	
 	public void setAdjacentNodes(){
 		int rowLess = 0, rowGreater = 0, colLess = 0, colGreater = 0;
 		
@@ -100,14 +101,32 @@ public class NodeGrid {
 					nodes[i][j].addNeighbor(nodes[rowGreater][colLess]);
 					nodes[i][j].addNeighbor(nodes[rowGreater][j]);
 				}
-				
-				
-				//implement corner node neighbor setting
-				
-				
-				
 			}
 		}
+		
+		//Setting corner nodes neighbors
+		
+		//top left corner
+		nodes[0][0].addNeighbor(nodes[0][1]);
+		nodes[0][0].addNeighbor(nodes[1][1]);
+		nodes[0][0].addNeighbor(nodes[1][0]);
+		
+		//top right corner
+		nodes[0][9].addNeighbor(nodes[0][8]);
+		nodes[0][9].addNeighbor(nodes[1][8]);
+		nodes[0][9].addNeighbor(nodes[1][9]);
+		
+		//bottom left corner
+		nodes[9][0].addNeighbor(nodes[8][0]);
+		nodes[9][0].addNeighbor(nodes[8][1]);
+		nodes[9][0].addNeighbor(nodes[9][1]);
+		
+		//bottom right corner
+		nodes[9][9].addNeighbor(nodes[9][8]);
+		nodes[9][9].addNeighbor(nodes[8][8]);
+		nodes[9][9].addNeighbor(nodes[8][9]);
+
+		
 		
 	}
 	

@@ -1,5 +1,7 @@
 package data;
 
+import java.util.ArrayList;
+
 import models.Node;
 
 public class NodeGrid {
@@ -15,6 +17,98 @@ public class NodeGrid {
 				nodes[row][column].setOccupied(false);
 			}
 		}
+	}
+	
+	public void setAdjacentNodes(){
+		int rowLess = 0, rowGreater = 0, colLess = 0, colGreater = 0;
+		
+		int arrayRows = nodes.length -1 ;
+		int arrayColumns = nodes[0].length -1;
+		
+		//Setting adjacent nodes for each node
+		for(int i = 0; i <= arrayRows; i++){
+			for(int j = 0; j <= arrayColumns; j++){
+				
+				
+				if(i > 0)
+					rowLess = i - 1;
+				else if(i == 0)
+					rowLess = -1;
+				
+				if(i < arrayRows)
+					rowGreater = i + 1;
+				else if(i == arrayRows)
+					rowGreater = -1;
+				
+				if(j > 0)
+					colLess = j - 1;
+				else if(j == 0)
+					colLess = -1;
+				
+				if(j < arrayColumns)
+					colGreater = j + 1;
+				else if(j == arrayColumns)
+					colGreater = -1;
+				
+				
+				//Add neighbors in a clockwise direction starting at the top left diagonally adjacent node
+				
+				//If the node is not an edge node
+				if(rowLess != -1 && rowGreater != -1 && colLess != -1 && colGreater != -1){
+					//neighbors above
+					nodes[i][j].addNeighbor(nodes[rowLess][colLess]);
+					nodes[i][j].addNeighbor(nodes[rowLess][j]);
+					nodes[i][j].addNeighbor(nodes[rowLess][colGreater]);
+					
+					//right neighbor
+					nodes[i][j].addNeighbor(nodes[i][colGreater]);
+					
+					//neighbors below
+					nodes[i][j].addNeighbor(nodes[rowGreater][colGreater]);
+					nodes[i][j].addNeighbor(nodes[rowGreater][j]);
+					nodes[i][j].addNeighbor(nodes[rowGreater][colLess]);
+					
+					//left neighbor
+					nodes[i][j].addNeighbor(nodes[i][colLess]);
+				} //If top row node
+				else if(rowLess == -1 && rowGreater == -1 && colLess != -1 && colGreater != -1){
+					nodes[i][j].addNeighbor(nodes[i][colLess]);
+					nodes[i][j].addNeighbor(nodes[rowGreater][colLess]);
+					nodes[i][j].addNeighbor(nodes[rowGreater][i]);
+					nodes[i][j].addNeighbor(nodes[rowGreater][colGreater]);
+					nodes[i][j].addNeighbor(nodes[i][colGreater]);
+					
+				} //If bottom row node
+				else if(rowLess != -1 && rowGreater == -1 && colLess != -1 && colGreater != -1){
+					nodes[i][j].addNeighbor(nodes[i][colLess]);
+					nodes[i][j].addNeighbor(nodes[rowLess][colLess]);
+					nodes[i][j].addNeighbor(nodes[rowLess][i]);
+					nodes[i][j].addNeighbor(nodes[rowLess][colGreater]);
+					nodes[i][j].addNeighbor(nodes[i][colGreater]);
+				} //If left row node
+				else if(rowLess == -1 && rowGreater != -1 && colLess != -1 && colGreater != -1){
+					nodes[i][j].addNeighbor(nodes[rowLess][j]);
+					nodes[i][j].addNeighbor(nodes[rowLess][colGreater]);
+					nodes[i][j].addNeighbor(nodes[i][colGreater]);
+					nodes[i][j].addNeighbor(nodes[rowGreater][colGreater]);
+					nodes[i][j].addNeighbor(nodes[rowGreater][j]);
+				} //If right row node
+				else if(rowLess != -1 && rowGreater == -1 && colLess != -1 && colGreater != -1){
+					nodes[i][j].addNeighbor(nodes[rowLess][j]);
+					nodes[i][j].addNeighbor(nodes[rowLess][colLess]);
+					nodes[i][j].addNeighbor(nodes[i][colLess]);
+					nodes[i][j].addNeighbor(nodes[rowGreater][colLess]);
+					nodes[i][j].addNeighbor(nodes[rowGreater][j]);
+				}
+				
+				
+				//implement corner node neighbor setting
+				
+				
+				
+			}
+		}
+		
 	}
 	
 	public Node[][] getNodes(){

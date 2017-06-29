@@ -2,6 +2,7 @@ package models;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -14,9 +15,11 @@ public class Node extends JButton {
 	private Color color;
 	private int row;
 	private int column;
+	private ArrayList<Node> adjacentNodes;
 
 	public Node(){
 		setPreferredSize(new Dimension(10, 10));
+		adjacentNodes = new ArrayList<>();
 	}
 	
 	
@@ -27,6 +30,19 @@ public class Node extends JButton {
 	}
 	
 	
+	public void addNeighbor(Node n){
+		adjacentNodes.add(n);
+	}
+	
+	public ArrayList<Node> getAdjacentNodes() {
+		return adjacentNodes;
+	}
+
+
+	public void setAdjacentNodes(ArrayList<Node> adjacentNodes) {
+		this.adjacentNodes = adjacentNodes;
+	}
+
 	public boolean isOccupied() {
 		return occupied;
 	}

@@ -19,29 +19,34 @@ import models.User;
 public class Controller {
 	NodeGrid grid;
 	BattleshipGUI gui;
-	NodeGridPanel gridPane;
+	NodeGridPanel userGridPane;
+	NodeGridPanel AIGridPane;
 	Player user;
+	Player AI;
 	
 	public Controller(BattleshipGUI gui){
 		
 		grid = new NodeGrid();
 		
 		user = new User();
-		placeShipsRandomly(user);
-		
+		AI = new models.AI();
 		
 		this.gui = gui;
 		
 		
-		gridPane = gui.getUserGridPane();
-		gridPane.setPlacingShips(true);
+		userGridPane = gui.getUserGridPane();
+		userGridPane.setPlacingShips(true);
 		
-		updateGridView(user);
+		AIGridPane = gui.getAIGridPane();
+		AIGridPane.setPlacingShips(false);
+		
+		placeShipsRandomly(AI);
+		updateGridView(AI);
 		
 		gui.setVisible(true);
 		
 		
-		//placeUserShips(user);
+		placeUserShips(user);
 	};
 	
 	public void placeUserShips(Player user){
@@ -51,13 +56,13 @@ public class Controller {
 	}
 	
 	public void solicitShipPlacement(Ship ship){
-		gridPane.setPlacingShips(true);
+		userGridPane.setPlacingShips(true);
 		
 		boolean shipPlaced = false;
 		
 		
-		/*
-		gridPane.solicitUserShipPlacement(ship.getName(), ship.getLength());
+		
+		userGridPane.solicitUserShipPlacement(ship.getName(), ship.getLength());
 		
 		
 		
@@ -67,7 +72,7 @@ public class Controller {
 		//Reset shipPlaced boolean in the infoPane
 		gui.getInfoPanel().setShipPlaced(false);
 		
-		ArrayList<Node> selectedNodes = gridPane.getSelectedNodes();
+		ArrayList<Node> selectedNodes = userGridPane.getSelectedNodes();
 		
 		Node[] nodes = new Node[ship.getLength()];
 		
@@ -80,8 +85,8 @@ public class Controller {
 		for(Node n: nodes)
 			n.setOccupied(true);
 		
-		gridPane.setPlacingShips(false);
-		updateGridView(user); */
+		userGridPane.setPlacingShips(false);
+		updateGridView(user); 
 	}
 	
 
@@ -90,7 +95,7 @@ public class Controller {
 		boolean successfulPlacement;
 	
 		
-		Ship[] ships = user.getShips();
+		Ship[] ships = AI.getShips();
 		
 		for(int i = 0; i < ships.length; i++){
 			do{
@@ -178,7 +183,7 @@ public class Controller {
 	
 	public void updateGridView(Player player){
 		
-		JButton[][] buttons = gridPane.getButtonNodes();
+		JButton[][] buttons = AIGridPane.getButtonNodes();
 		
 		Ship[] ships = player.getShips();
 		

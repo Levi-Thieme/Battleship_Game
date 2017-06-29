@@ -33,7 +33,7 @@ public class InfoPanel extends JPanel {
 		setPreferredSize(new Dimension(200, 600));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		userGridPane = userGridPane;
+		this.userGridPane = userGridPane;
 		
 		JLabel lblBattleship = new JLabel("Battleship");
 		lblBattleship.setAlignmentY(Component.TOP_ALIGNMENT);

@@ -20,8 +20,8 @@ import java.awt.FlowLayout;
 public class NodeGridPanel extends JPanel implements ActionListener{
 	Node[][] buttonNodes;
 	ArrayList<Node> selectedNodes = new ArrayList<>();
-	private boolean placingShips = false;
-	private boolean shipPlaced = false;
+	private boolean placingShips;
+	private boolean shipPlaced;
 	private int shipLength;
 	
 	public NodeGridPanel(){
@@ -31,7 +31,8 @@ public class NodeGridPanel extends JPanel implements ActionListener{
 		
 		buttonNodes = new Node[10][10];
 		
-		
+		placingShips = false;
+		shipPlaced = false;
 		
 		for(int row = 0; row < 10; row++){
 			for(int column = 0; column < 10; column++){
@@ -57,15 +58,9 @@ public class NodeGridPanel extends JPanel implements ActionListener{
 		return buttonNodes;
 	}
 	
+	
 	public ArrayList<Node> getSelectedNodes(){
-		
-		ArrayList<Node> selectedNodesCopy = new ArrayList<>();
-		for(int i = 0; i < selectedNodes.size(); i++)
-			selectedNodesCopy.add(selectedNodes.get(i));
-		
-		selectedNodes.clear();
-		
-		return selectedNodesCopy;
+		return selectedNodes;
 	}
 	
 	public void setPlacingShips(boolean b){
@@ -74,12 +69,12 @@ public class NodeGridPanel extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(placingShips){
 			
+		if(placingShips){
 			Node selectedButton = (Node) e.getSource();
 			
-			buttonNodes[selectedButton.getX()][selectedButton.getY()].setBackground(Color.DARK_GRAY);
-			buttonNodes[selectedButton.getX()][selectedButton.getY()].add(selectedButton);
+			buttonNodes[selectedButton.getRow()][selectedButton.getColumn()].setBackground(Color.DARK_GRAY);
+			selectedNodes.add(selectedButton);
 			/*
 			if(selectedNodes.size() < shipLength){
 				
@@ -98,6 +93,7 @@ public class NodeGridPanel extends JPanel implements ActionListener{
 				}
 			}	*/
 		}
+		
 	}
 	
 	public void clearSelectedNodes(){

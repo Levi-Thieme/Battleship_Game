@@ -1,11 +1,16 @@
-package controller;
+package controllers;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 import views.BattleshipGUI;
 import views.NodeGridPanel;
@@ -16,13 +21,15 @@ import models.Player;
 import models.Ship;
 import models.User;
 
-public class Controller {
-	NodeGrid grid;
-	BattleshipGUI gui;
-	NodeGridPanel userGridPane;
-	NodeGridPanel AIGridPane;
-	Player user;
-	Player AI;
+public class Controller implements Observer{
+	private NodeGrid grid;
+	private BattleshipGUI gui;
+	private NodeGridPanel userGridPane;
+	private NodeGridPanel AIGridPane;
+	private Player user;
+	private Player AI;
+	private Ship shipCurrentlyBeingPlaced;
+
 	
 	public Controller(BattleshipGUI gui){
 		
@@ -37,57 +44,30 @@ public class Controller {
 		userGridPane = gui.getUserGridPane();
 		userGridPane.setPlacingShips(true);
 		
+		
 		AIGridPane = gui.getAIGridPane();
 		AIGridPane.setPlacingShips(false);
 		
 		placeShipsRandomly(AI);
 		updateGridView(AI);
 		
+		
 		gui.setVisible(true);
 		
-		
-		placeUserShips(user);
 	};
-	
-	public void placeUserShips(Player user){
-		for(Ship ship: user.getShips())
-			solicitShipPlacement(ship);
-		
-	}
 	
 	public void solicitShipPlacement(Ship ship){
 		userGridPane.setPlacingShips(true);
+				
 		
-		boolean shipPlaced = false;
+		JOptionPane.showMessageDialog(null, "Place your " + ship.getName() + ". It requires " 
+				+ ship.getLength() + " spaces.");
 		
+		shipCurrentlyBeingPlaced = ship;
 		
-		
-		userGridPane.solicitUserShipPlacement(ship.getName(), ship.getLength());
-		
-		
-		
-		while(!shipPlaced)
-			shipPlaced = gui.getInfoPanel().getShipPlaced();
-		
-		//Reset shipPlaced boolean in the infoPane
-		gui.getInfoPanel().setShipPlaced(false);
-		
-		ArrayList<Node> selectedNodes = userGridPane.getSelectedNodes();
-		
-		Node[] nodes = new Node[ship.getLength()];
-		
-		//Convert selectedNodes arrayList to an array for setting ships occupied nodes
-		for(int i = 0; i < selectedNodes.size(); i++)
-			nodes[i] = selectedNodes.get(i);
-		
-		ship.setOccupiedNodes(nodes);
-		
-		for(Node n: nodes)
-			n.setOccupied(true);
-		
-		userGridPane.setPlacingShips(false);
-		updateGridView(user); 
 	}
+		
+	
 	
 
 	
@@ -183,7 +163,7 @@ public class Controller {
 	
 	public void updateGridView(Player player){
 		
-		JButton[][] buttons = AIGridPane.getButtonNodes();
+		JButton[][] buttons = AIGridPane.getNodes();
 		
 		Ship[] ships = player.getShips();
 		
@@ -203,6 +183,15 @@ public class Controller {
 			}
 		}
 	}
+	
+	
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 
 }

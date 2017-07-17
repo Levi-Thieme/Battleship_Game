@@ -1,8 +1,9 @@
 
+import controllers.Controller;
 import ships.Destroyer;
 import views.BattleshipGUI;
+import views.ShipPlacementFrame;
 import views.StartFrame;
-import controller.Controller;
 
 
 public class Driver {
@@ -11,10 +12,10 @@ public class Driver {
 		
 		//StartFrame startF = new StartFrame();
 		//startF.setVisible(true);
-		BattleshipGUI gui = new BattleshipGUI();
+		//BattleshipGUI gui = new BattleshipGUI();
 		
-		Controller controller = new Controller(gui);
-	
+		//Controller controller = new Controller(gui);
+		new ShipPlacementFrame().setVisible(true);
 	}
 
 }

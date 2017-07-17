@@ -17,6 +17,8 @@ public class NodeGrid {
 				nodes[row][column].setOccupied(false);
 			}
 		}
+		
+		setAdjacentNodes();
 	}
 	
 	
@@ -29,7 +31,6 @@ public class NodeGrid {
 		//Setting adjacent nodes for each node
 		for(int i = 0; i <= arrayRows; i++){
 			for(int j = 0; j <= arrayColumns; j++){
-				
 				
 				if(i > 0)
 					rowLess = i - 1;
@@ -72,10 +73,10 @@ public class NodeGrid {
 					//left neighbor
 					nodes[i][j].addNeighbor(nodes[i][colLess]);
 				} //If top row node
-				else if(rowLess == -1 && rowGreater == -1 && colLess != -1 && colGreater != -1){
+				else if(rowLess == -1 && rowGreater != -1 && colLess != -1 && colGreater != -1){
 					nodes[i][j].addNeighbor(nodes[i][colLess]);
 					nodes[i][j].addNeighbor(nodes[rowGreater][colLess]);
-					nodes[i][j].addNeighbor(nodes[rowGreater][i]);
+					nodes[i][j].addNeighbor(nodes[rowGreater][j]);
 					nodes[i][j].addNeighbor(nodes[rowGreater][colGreater]);
 					nodes[i][j].addNeighbor(nodes[i][colGreater]);
 					
@@ -83,18 +84,18 @@ public class NodeGrid {
 				else if(rowLess != -1 && rowGreater == -1 && colLess != -1 && colGreater != -1){
 					nodes[i][j].addNeighbor(nodes[i][colLess]);
 					nodes[i][j].addNeighbor(nodes[rowLess][colLess]);
-					nodes[i][j].addNeighbor(nodes[rowLess][i]);
+					nodes[i][j].addNeighbor(nodes[rowLess][j]);
 					nodes[i][j].addNeighbor(nodes[rowLess][colGreater]);
 					nodes[i][j].addNeighbor(nodes[i][colGreater]);
-				} //If left row node
-				else if(rowLess == -1 && rowGreater != -1 && colLess != -1 && colGreater != -1){
+				} //If left column node
+				else if(rowLess != -1 && rowGreater != -1 && colLess == -1 && colGreater != -1){
 					nodes[i][j].addNeighbor(nodes[rowLess][j]);
 					nodes[i][j].addNeighbor(nodes[rowLess][colGreater]);
 					nodes[i][j].addNeighbor(nodes[i][colGreater]);
 					nodes[i][j].addNeighbor(nodes[rowGreater][colGreater]);
 					nodes[i][j].addNeighbor(nodes[rowGreater][j]);
-				} //If right row node
-				else if(rowLess != -1 && rowGreater == -1 && colLess != -1 && colGreater != -1){
+				} //If right column node
+				else if(rowLess != -1 && rowGreater != -1 && colLess != -1 && colGreater == -1){
 					nodes[i][j].addNeighbor(nodes[rowLess][j]);
 					nodes[i][j].addNeighbor(nodes[rowLess][colLess]);
 					nodes[i][j].addNeighbor(nodes[i][colLess]);
@@ -144,5 +145,5 @@ public class NodeGrid {
 		
 		return false;
 	}
-
+	
 }

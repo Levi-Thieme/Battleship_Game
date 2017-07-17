@@ -7,6 +7,9 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import controllers.Controller;
+
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 
@@ -22,11 +25,11 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Observer;
 
 public class InfoPanel extends JPanel {
 	private JButton placeShipBtn;
 	private JButton clearSelectedNodesBtn;
-	private boolean shipPlaced = false;
 	private NodeGridPanel userGridPane;
 	
 	public InfoPanel(NodeGridPanel userGridPane){
@@ -49,40 +52,9 @@ public class InfoPanel extends JPanel {
 		placeShipBtn = new JButton("Place Ship");
 		placeShipBtn.setPreferredSize(new Dimension(140, 45));
 		panel_2.add(placeShipBtn);
-		placeShipBtn.addActionListener(new PlacementButtonListener());
 		
 		clearSelectedNodesBtn = new JButton("Clear Selected Nodes");
 		panel_2.add(clearSelectedNodesBtn);
-		clearSelectedNodesBtn.addActionListener(new PlacementButtonListener());
 		
 	}
-	
-	private class PlacementButtonListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == placeShipBtn){
-				shipPlaced = true;
-			}
-			else if(e.getSource() == clearSelectedNodesBtn){
-				ArrayList<Node> selectedNodes = userGridPane.getSelectedNodes();
-				
-				for(Node n: selectedNodes){
-					n.setBackground(new JButton().getBackground());
-				}
-				
-				userGridPane.clearSelectedNodes();
-			}
-		}
-		
-	}
-	
-	public boolean getShipPlaced(){
-		return shipPlaced;
-	}
-	
-	public void setShipPlaced(boolean b){
-		shipPlaced = b;
-	}
-
 }

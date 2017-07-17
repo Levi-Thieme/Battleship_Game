@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
-import controller.Controller;
+import controllers.Controller;
 
 import java.awt.Dimension;
 

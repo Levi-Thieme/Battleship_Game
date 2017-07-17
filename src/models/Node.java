@@ -2,11 +2,14 @@ package models;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.border.LineBorder;
 
 public class Node extends JButton {
 	
@@ -27,11 +30,12 @@ public class Node extends JButton {
 		setPreferredSize(new Dimension(10, 10));
 		row = x;
 		column = y;
+		adjacentNodes = new ArrayList<Node>();
 	}
 	
 	public boolean isAdjacent(Node n){
 		for(int i = 0; i < adjacentNodes.size(); i++){
-			if(n == adjacentNodes.get(i))
+			if(adjacentNodes.get(i) == n)
 				return true;
 		}
 		return false;
@@ -87,5 +91,6 @@ public class Node extends JButton {
 	public void setColumn(int column) {
 		this.column = column;
 	}
+
 
 }

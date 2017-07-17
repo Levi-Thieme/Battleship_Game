@@ -3,7 +3,7 @@ package views;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import controller.Controller;
+import controllers.Controller;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;

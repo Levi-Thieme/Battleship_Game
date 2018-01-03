@@ -15,14 +15,22 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import models.Node;
+import models.Ship;
 
+/**
+ * This Class represents the ship placement grid and 
+ * contains methods and listeners for placing ships
+ * @author Levi Thieme
+ *
+ */
 public class ShipPlacementGrid extends JPanel implements MouseListener {
 	Node[][] nodes;
 	ArrayList<Node> selectedNodes;
 	private int shipLength;
+	private Ship shipBeingPlaced;
 	private int orientation = 0; // 0 for vertical, 1 for horizontal
 	private ArrayList<Node> highlightedNodes = new ArrayList<>();
-	private boolean shipBeingPlaced = false;
+	private boolean placingShip = false;
 	public final static int VERTICAL_ORIENTATION = 0;
 	public final static int HORIZONTAL_ORIENTATION = 1;
 	
@@ -39,7 +47,7 @@ public class ShipPlacementGrid extends JPanel implements MouseListener {
 			for(int column = 0; column < 10; column++){
 				
 				Node node = new Node(row, column);
-				//node.addActionListener(this);
+				
 				node.addMouseListener(this);
 				
 				nodes[row][column] = node;
@@ -106,9 +114,12 @@ public class ShipPlacementGrid extends JPanel implements MouseListener {
 		highlightedNodes.clear();	
 	}
 	
-			
+	/**
+	 * Places a ship on the board	
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
 		for(Node n : highlightedNodes){
 			if(n.isOccupied()){
 				JOptionPane.showMessageDialog(null, "You cannot overlap ships.");
@@ -117,20 +128,33 @@ public class ShipPlacementGrid extends JPanel implements MouseListener {
 			}
 		}
 		
+		Node highlightedArray[] = new Node[highlightedNodes.size()];
+		
+		for(int i = 0; i < highlightedArray.length; i++)
+			highlightedArray[i] = highlightedNodes.get(i);
+		
+		shipBeingPlaced.setOccupiedNodes(highlightedArray);
+		
 		selectedNodes.addAll(highlightedNodes);
+		
+		
 		highlightedNodes.clear();
 		
 		for(Node n : selectedNodes){
 			n.setOccupied(true);
 		}
-		shipBeingPlaced = false;
+		placingShip = false;
 		shipLength = 0;
 	}
-
+	
+	/**
+	 * This method highlights nodes based on ship length
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		
-		if(shipBeingPlaced){
+		if(placingShip){
+			
 			Node mousedOverNode	= (Node) e.getComponent();
 			highlightedNodes.clear();
 			
@@ -238,6 +262,9 @@ public class ShipPlacementGrid extends JPanel implements MouseListener {
 		}
 	}
 	
+	/**
+	 * Sets the highlighted nodes to their default colors
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
 		
@@ -261,10 +288,32 @@ public class ShipPlacementGrid extends JPanel implements MouseListener {
 		
 	}
 	
+	/**
+	 * Sets the field data for the ship currently being placed
+	 * @param s
+	 */
+	public void setShipBeingPlaced(Ship s){
+		shipBeingPlaced = s;
+		shipLength = s.getLength();
+		placingShip = true;
+	}
+	
+	/**
+	 *
+	 * @return A reference tot he ship being placed
+	 */
+	public Ship getShipBeingPlaced(){
+		return shipBeingPlaced;
+	}
+	
 	public void setShipLength(int length){
 		shipLength = length;
 	}
 	
+	/**
+	 * Sets the ship placement orientation 
+	 * @param orientation: 0 for vertical and 1 for horizaontal
+	 */
 	public void setOrientation(int orientation){
 		this.orientation = orientation;
 	}
@@ -273,8 +322,13 @@ public class ShipPlacementGrid extends JPanel implements MouseListener {
 		this.nodes = nodes;
 	}
 	
-	public void setShipBeingPlaced(boolean b){
-		shipBeingPlaced = b;
+	/**
+	 * Sets placingShip boolean to
+	 * indicate if ship is being placed
+	 * @param b
+	 */
+	public void setPlacingShip(boolean b){
+		placingShip = b;
 	}
 		
 	

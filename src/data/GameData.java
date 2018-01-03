@@ -3,11 +3,24 @@ package data;
 import java.util.ArrayList;
 
 import models.Node;
+import models.Player;
+import models.User;
 
-public class NodeGrid {
+
+/**
+ * This Class contains information for the Nodes and Players
+ * @author Levi Thieme
+ *
+ */
+public class GameData {
 	private Node[][] nodes;
+	private Player user;
+	private Player AI;
 	
-	public NodeGrid(){
+	public GameData(){
+		
+		user = new User();
+		AI = new models.AI();
 		
 		nodes = new Node[10][10];
 		
@@ -21,7 +34,25 @@ public class NodeGrid {
 		setAdjacentNodes();
 	}
 	
-	
+	/**
+	 *
+	 * @return A reference to user
+	 */
+	public Player getUser() {
+		return user;
+	}
+
+	/**
+	 * 
+	 * @return A reference to AI
+	 */
+	public Player getAI() {
+		return AI;
+	}
+
+	/**
+	 * Sets each nodes' adjacent nodes
+	 */
 	public void setAdjacentNodes(){
 		int rowLess = 0, rowGreater = 0, colLess = 0, colGreater = 0;
 		
@@ -131,14 +162,28 @@ public class NodeGrid {
 		
 	}
 	
+	/**
+	 * 
+	 * @return A reference to nodes
+	 */
 	public Node[][] getNodes(){
 		return nodes;
 	}
 	
+	
+	/**
+	 * 
+	 * @param n The node to be set as occupied
+	 */
 	public void setNodeOccupied(Node n){
 		nodes[n.getRow()][n.getColumn()].setOccupied(true);
 	}
 	
+	/**
+	 * 
+	 * @param n The node to be checked for occupation status
+	 * @return True if occupied, otherwise False
+	 */
 	public boolean isNodeOccupied(Node n){
 		if(nodes[n.getRow()][n.getColumn()].isOccupied())
 			return true;

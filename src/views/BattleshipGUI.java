@@ -8,6 +8,12 @@ import controllers.Controller;
 
 import java.awt.Dimension;
 
+
+/**
+ * This Class represents the Battleship GUI
+ * @author Levi Thieme
+ *
+ */
 public class BattleshipGUI extends JFrame{
 	NodeGridPanel userGridPane;
 	NodeGridPanel AIGridPane;
@@ -20,6 +26,9 @@ public class BattleshipGUI extends JFrame{
 		addPanes();
 	}
 	
+	/**
+	 * Adds panes to the Frame
+	 */
 	public void addPanes(){
 		
 		userGridPane = new NodeGridPanel();
@@ -38,14 +47,26 @@ public class BattleshipGUI extends JFrame{
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @return A reference to userGridPane
+	 */
 	public NodeGridPanel getUserGridPane(){
 		return userGridPane;
 	}
+	
+	/**
+	 * 
+	 * @return A reference to AIGridPane
+	 */
 	public NodeGridPanel getAIGridPane(){
 		return AIGridPane;
 	}
 	
+	/**
+	 * 
+	 * @return A reference to infoPane
+	 */
 	public InfoPanel getInfoPanel(){
 		return infoPane;
 	}

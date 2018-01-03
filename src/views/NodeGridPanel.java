@@ -20,7 +20,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 
-public class NodeGridPanel extends JPanel implements ActionListener, MouseListener{
+public class NodeGridPanel extends JPanel implements ActionListener {
 	Node[][] nodes;
 	ArrayList<Node> selectedNodes;
 	private boolean placingShips;
@@ -43,7 +43,7 @@ public class NodeGridPanel extends JPanel implements ActionListener, MouseListen
 				
 				Node node = new Node(row, column);
 				node.addActionListener(this);
-				node.addMouseListener(this);
+				
 				
 				nodes[row][column] = node;
 				this.add(nodes[row][column]);
@@ -153,54 +153,7 @@ public class NodeGridPanel extends JPanel implements ActionListener, MouseListen
 		
 	}
 	
-	
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		Node mousedOverNode	= (Node) e.getComponent();
-		
-		for(Node n : mousedOverNode.getAdjacentNodes()){
-			n.setBackground(Color.GREEN);
-			n.setBorder(new LineBorder(Color.black, 3));
-		}
-			
-		System.out.println("Mouse entered at: " + mousedOverNode.getRow() 
-			+ " " + mousedOverNode.getColumn());
-		
-	}
-
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		Node mousedOverNode	= (Node) e.getComponent();
-		
-		for(Node n : mousedOverNode.getAdjacentNodes()){
-			n.setBackground(new Node().getBackground());
-			n.setBorder(new Node().getBorder());
-		}
-		
-	}
-
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void setAdjacentNodes(){
 		int rowLess = 0, rowGreater = 0, colLess = 0, colGreater = 0;

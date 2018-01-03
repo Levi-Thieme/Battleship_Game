@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import controllers.Controller;
+import controllers.PlacementController;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,6 +40,7 @@ public class StartFrame extends JFrame implements ActionListener {
 	        });
 		 
 		JButton continueBtn = new JButton("Continue");
+		continueBtn.setPreferredSize(new Dimension(84, 40));
 		continueBtn.addActionListener(this);
 		
 		getContentPane().add(continueBtn, BorderLayout.SOUTH);
@@ -53,12 +55,7 @@ public class StartFrame extends JFrame implements ActionListener {
 		if(e.getActionCommand().equals("Continue")){
 			this.setVisible(false);
 			
-			BattleshipGUI gui = new BattleshipGUI();
-			
-			Controller control = new Controller(gui);
-			
-			gui.setVisible(true);
-			
+			PlacementController placementController = new PlacementController();
 		}
 	}
 

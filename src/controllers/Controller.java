@@ -15,14 +15,20 @@ import javax.swing.border.LineBorder;
 import views.BattleshipGUI;
 import views.NodeGridPanel;
 
-import data.NodeGrid;
+import data.GameData;
 import models.Node;
 import models.Player;
 import models.Ship;
 import models.User;
 
-public class Controller implements Observer{
-	private NodeGrid grid;
+
+/**
+ * The Controller class handles user input and ship placement
+ * @author Levi Thieme
+ *
+ */
+public class Controller {
+	private GameData gameData;
 	private BattleshipGUI gui;
 	private NodeGridPanel userGridPane;
 	private NodeGridPanel AIGridPane;
@@ -31,47 +37,35 @@ public class Controller implements Observer{
 	private Ship shipCurrentlyBeingPlaced;
 
 	
-	public Controller(BattleshipGUI gui){
+	public Controller(GameData gameData){
 		
-		grid = new NodeGrid();
 		
-		user = new User();
-		AI = new models.AI();
+		this.gameData = gameData;
 		
-		this.gui = gui;
+		user = gameData.getUser();
+		AI = gameData.getAI();
+		
+		gui = new BattleshipGUI();
 		
 		
 		userGridPane = gui.getUserGridPane();
-		userGridPane.setPlacingShips(true);
-		
 		
 		AIGridPane = gui.getAIGridPane();
 		AIGridPane.setPlacingShips(false);
 		
-		placeShipsRandomly(AI);
-		updateGridView(AI);
+		placeShipsRandomly();
+		updateAIGridView();
 		
+		updateUserGridView();
 		
 		gui.setVisible(true);
-		
-	};
-	
-	public void solicitShipPlacement(Ship ship){
-		userGridPane.setPlacingShips(true);
-				
-		
-		JOptionPane.showMessageDialog(null, "Place your " + ship.getName() + ". It requires " 
-				+ ship.getLength() + " spaces.");
-		
-		shipCurrentlyBeingPlaced = ship;
-		
 	}
-		
-	
 	
 
-	
-	public void placeShipsRandomly(Player user){
+	/**
+	 * Randomly places the AI's ships
+	 */
+	public void placeShipsRandomly(){
 		boolean successfulPlacement;
 	
 		
@@ -85,7 +79,11 @@ public class Controller implements Observer{
 		
 	}
 	
-	
+	/**
+	 * Randomly places the ship 
+	 * @param ship The ship to be placed
+	 * @return True if ship was placed successfully, else return false
+	 */
 	public boolean randomlyPlaceShip(Ship ship){
 		
 		Node[] shipNodes = new Node[ship.getLength()];
@@ -106,7 +104,7 @@ public class Controller implements Observer{
 		
 		shipNodes[0] = new Node(row, column);
 		
-		if(grid.isNodeOccupied(shipNodes[0]))
+		if(gameData.isNodeOccupied(shipNodes[0]))
 			return false;
 		
 		
@@ -117,7 +115,7 @@ public class Controller implements Observer{
 			for(int i = 1; i < ship.getLength(); i++){
 				shipNodes[i] = new Node(row, column - i);
 				
-				if(grid.isNodeOccupied(shipNodes[i]))
+				if(gameData.isNodeOccupied(shipNodes[i]))
 					return false;
 			}
 		}
@@ -127,7 +125,7 @@ public class Controller implements Observer{
 			for(int i = 1; i < ship.getLength(); i++){
 				shipNodes[i] = new Node(row, column + i);
 			
-				if(grid.isNodeOccupied(shipNodes[i]))
+				if(gameData.isNodeOccupied(shipNodes[i]))
 					return false;
 			}	
 		}
@@ -137,7 +135,7 @@ public class Controller implements Observer{
 			for(int i = 1; i < ship.getLength(); i++){
 				shipNodes[i] = new Node(row - i, column);
 				
-				if(grid.isNodeOccupied(shipNodes[i]))
+				if(gameData.isNodeOccupied(shipNodes[i]))
 					return false;
 			}
 		}
@@ -146,14 +144,14 @@ public class Controller implements Observer{
 		if(orientation == 3){
 			for(int i = 1; i < ship.getLength(); i++){
 				shipNodes[i] = new Node(row + i, column);
-				
-				if(grid.isNodeOccupied(shipNodes[i]))
+	
+				if(gameData.isNodeOccupied(shipNodes[i]))
 					return false;
 			}
 		}
 		
 		for(int i = 0; i < shipNodes.length; i++){
-			grid.setNodeOccupied(shipNodes[i]);
+			gameData.setNodeOccupied(shipNodes[i]);
 		}
 		
 		ship.setOccupiedNodes(shipNodes);
@@ -161,11 +159,12 @@ public class Controller implements Observer{
 		return true;
 	}
 	
-	public void updateGridView(Player player){
+	
+	public void updateUserGridView() {
 		
-		JButton[][] buttons = AIGridPane.getNodes();
+		JButton[][] buttons = userGridPane.getNodes();
 		
-		Ship[] ships = player.getShips();
+		Ship[] ships = user.getShips();
 		
 		int x;
 		int y;
@@ -182,15 +181,32 @@ public class Controller implements Observer{
 				buttons[x][y].setText(Character.toString(s.getSymbol()));
 			}
 		}
-	}
-	
-	
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	public void updateAIGridView(){
+		
+		JButton[][] buttons = AIGridPane.getNodes();
+		
+		Ship[] ships = AI.getShips();
+		
+		int x;
+		int y;
+		
+		for(int i = 0; i < ships.length; i++){
+			Ship s = ships[i];
+			Node[] shipNodes = s.getOccupiedNodes();
+			
+			for(int j = 0; j < shipNodes.length; j++){
+				x = shipNodes[j].getRow();
+				y = shipNodes[j].getColumn();
+				
+				buttons[x][y].setBackground(Color.cyan);
+				buttons[x][y].setText(Character.toString(s.getSymbol()));
+			}
+		}
+	}	
 	
 	
 

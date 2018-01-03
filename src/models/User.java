@@ -21,8 +21,9 @@ public class User extends Player{
 		ships[0] = new Battleship("Test");
 		ships[1] = new Cruiser("Test");
 		ships[2] = new Destroyer("Test");
-		ships[3] = new Destroyer("Test");
+		ships[3] = new Submarine("Test");
 		ships[4] = new Submarine("Test");
 	}
+	
 
 }

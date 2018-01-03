@@ -28,8 +28,6 @@ import java.util.ArrayList;
 import java.util.Observer;
 
 public class InfoPanel extends JPanel {
-	private JButton placeShipBtn;
-	private JButton clearSelectedNodesBtn;
 	private NodeGridPanel userGridPane;
 	
 	public InfoPanel(NodeGridPanel userGridPane){
@@ -39,7 +37,7 @@ public class InfoPanel extends JPanel {
 		this.userGridPane = userGridPane;
 		
 		JLabel lblBattleship = new JLabel("Battleship");
-		lblBattleship.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblBattleship.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblBattleship.setPreferredSize(new Dimension(50, 25));
 		lblBattleship.setBorder(null);
 		lblBattleship.setFont(new Font("Dialog", Font.BOLD, 18));
@@ -48,13 +46,6 @@ public class InfoPanel extends JPanel {
 		JPanel panel_2 = new JPanel();
 		add(panel_2);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		placeShipBtn = new JButton("Place Ship");
-		placeShipBtn.setPreferredSize(new Dimension(140, 45));
-		panel_2.add(placeShipBtn);
-		
-		clearSelectedNodesBtn = new JButton("Clear Selected Nodes");
-		panel_2.add(clearSelectedNodesBtn);
 		
 	}
 }
